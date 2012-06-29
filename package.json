@@ -1,0 +1,14 @@
+{
+	"name": "timbot",
+	"version": "0.0.1",
+	"description": "A simple bot for Campfire",
+	"author": "Timothy Kempf <tim@kemp59f.info> (http://www.kemp59f.info)",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Fauntleroy/Timbot.git"
+	},
+	"dependencies": {
+		"ranger": "*",
+		"underscore": "*"
+	}
+}
