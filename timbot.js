@@ -2,10 +2,19 @@
 // Just replace anything with config. in front of it with the appropriate information
 var config = require('./config.js');
 
+// Fetch all the emoticon codes
+var emoticons = require('./emoticons.js');
+
 // Ranger is our Campfire module
 var ranger = require('ranger');
 
 var _ = require('underscore');
+
+_.mixin({
+	random: function( array ){
+		return array[Math.floor(Math.random() * array.length)];
+	}
+});
 
 var Timbot = function( params ){
 	
@@ -43,6 +52,9 @@ var Timbot = function( params ){
 					else if( command[1] === 'INSULT SOMEONE' )
 						bot.insult();
 					
+					else if( command[1] === 'EMOTICON SOMEONE' )
+						bot.emoticon();
+
 					else if( command[1] === 'GTFO' )
 						bot.leave();
 					
@@ -117,6 +129,22 @@ var Timbot = function( params ){
 			
 		});
 		
+	};
+
+	// Sends a user an emoticon
+	this.emoticon = function( username ){
+
+		getUsernames( function( usernames ){
+
+			if( !username )
+				username = usernames[0];
+
+			var emoticon = _( emoticons ).random();
+
+			room.speak( username +': :'+ emoticon +':' );
+
+		});
+
 	};
 	
 	// Says something
