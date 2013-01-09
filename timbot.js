@@ -26,7 +26,6 @@ var Timbot = function( params ){
 	var room_id = params.room_id;
 	var insults = params.insults;
 	var wins = params.wins;
-	console.log( campfire, campfire.rooms );
 	
 	// Join Campfire room and listen for messages
 	campfire.room( room_id, function( selected_room ){
@@ -35,8 +34,10 @@ var Timbot = function( params ){
 		
 		room.join( function(){
 			
+			console.log('TIMBOT is listening...');
+			
 			room.listen( function( message ){
-				
+
 				var command = params.command.exec( message.body );
 				
 				if( command ){
@@ -167,10 +168,12 @@ var Timbot = function( params ){
 	
 	// Leaves the room
 	this.leave = function(){
-		
+
 		room.stopListening();
 		room.leave();
 		
+		console.log('TIMBOT has self terminated.');
+
 	};
 	
 };
@@ -179,7 +182,7 @@ var timbot = new Timbot({
 	ssl: true,
 	token: config.token,				// your Campfire token, find it in your Campfire user profile
 	account: config.account,			// 'sparkartengineering', this is the room URL's subdomain usually
-	room_id: '463745',					// ID number of the room you want to join
+	room_id: config.room_id,					// ID number of the room you want to join
 	command: /TIM\sBOT\:\s(.*)/,		// regex that matches your command flag. keep matching parens at end
 	insults: config.insults,			// array of strings
 	wins: config.wins					// array of strings
